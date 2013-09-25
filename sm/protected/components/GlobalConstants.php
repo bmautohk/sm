@@ -22,4 +22,9 @@ class GlobalConstants {
 	const PRODUCE_STATUS_CANCEL = "CL";
 	const PRODUCE_STATUS_MONOPOLY = "MO";
 	const PRODUCE_STATUS_COMPLETE = "CP";
+	
+	// this is relative path to application path
+	const APP_RELATIVE_URL = '/..';
+	const DIR_APPOINTMENT_IMG = 'appoint';
+
 }
