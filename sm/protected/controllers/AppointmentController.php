@@ -75,10 +75,48 @@ class AppointmentController extends Controller
 			// Assign the created customer to the current login in user
 			$_POST['Appointment']['authorize_username']=Yii::app()->user->name;
 			$model->attributes=$_POST['Appointment'];
+			
+			//20139006
+			$date = new DateTime();
+			$dateString = $date->format('YmdHis');
+			
+			$model->img1 = CUploadedFile::getInstance($model, 'img1');
+			$fileName = "{$dateString}-{$model->img1}";
+			//echo Yii::trace(CVarDumper::dumpAsString($model->img1),'vardump2');
+			if ($model->img1!=null and !$model->img1->getHasError()) {
+				$model->img1->saveAs(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName));
+				chmod(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName), 0777 );
+				$model->img1=$fileName;
+			}
+			
+			$model->img2 = CUploadedFile::getInstance($model, 'img2');
+			$fileName = "{$dateString}-{$model->img2}";
+			if ($model->img2!=null and !$model->img2->getHasError()) {
+				$model->img2->saveAs(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName));
+				chmod(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName), 0777 );
+				$model->img2=$fileName;
+			}
+			
+			$model->img3 = CUploadedFile::getInstance($model, 'img3');
+			$fileName = "{$dateString}-{$model->img3}";
+			if ($model->img3!=null and !$model->img3->getHasError()) {
+				$model->img3->saveAs(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName));
+				chmod(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName), 0777 );
+				$model->img3=$fileName;
+			}
+			
+			$model->img4 = CUploadedFile::getInstance($model, 'img4');
+			$fileName = "{$dateString}-{$model->img4}";
+			if ($model->img4!=null and !$model->img4->getHasError()) {
+				$model->img4->saveAs(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName));
+				chmod(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName), 0777 );
+				$model->img4=$fileName;
+			}
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
+				
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -92,17 +130,70 @@ class AppointmentController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
+		
+		//20139006
+		$oldfilename1=$model->img1;	// let's store original filename (if it was defined)
+		$oldfilename2=$model->img2;	// let's store original filename (if it was defined)
+		$oldfilename3=$model->img3;	// let's store original filename (if it was defined)
+		$oldfilename4=$model->img4;	// let's store original filename (if it was defined)
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Appointment']))
 		{
 			$model->attributes=$_POST['Appointment'];
+			
+			//20139006
+			$date = new DateTime();
+			$dateString = $date->format('YmdHis');
+			
+			$model->img1 = CUploadedFile::getInstance($model, 'img1');
+			//echo Yii::trace(CVarDumper::dumpAsString($model->img1),'vardump');
+			$fileName = "{$dateString}-{$model->img1}";
+			if ($model->img1!=null and !$model->img1->getHasError()) {
+				//echo Yii::trace(CVarDumper::dumpAsString($model->img1),'vardump');
+				$model->img1->saveAs(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName));
+				chmod(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName), 0777 );
+				$model->img1=$fileName;
+			}else{
+				$model->img1 = $oldfilename1;
+			}
+			
+			$model->img2 = CUploadedFile::getInstance($model, 'img2');
+			$fileName = "{$dateString}-{$model->img2}";
+			if ($model->img2!=null and !$model->img2->getHasError()) {
+				$model->img2->saveAs(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName));
+				chmod(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName), 0777 );
+				$model->img2=$fileName;
+			}else{
+				$model->img2 = $oldfilename2;
+			}
+			
+			$model->img3 = CUploadedFile::getInstance($model, 'img3');
+			$fileName = "{$dateString}-{$model->img3}";
+			if ($model->img3!=null and !$model->img3->getHasError()) {
+				$model->img3->saveAs(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName));
+				chmod(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName), 0777 );
+				$model->img3=$fileName;
+			}else{
+				$model->img3 = $oldfilename3;
+			}
+			
+			$model->img4 = CUploadedFile::getInstance($model, 'img4');
+			$fileName = "{$dateString}-{$model->img4}";
+			if ($model->img4!=null and !$model->img4->getHasError()) {
+				$model->img4->saveAs(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName));
+				chmod(Yii::app()->basePath.GlobalConstants::APP_RELATIVE_URL.BuildUrl::imageUrl(GlobalConstants::DIR_APPOINTMENT_IMG.'/'.$fileName), 0777 );
+				$model->img4=$fileName;
+			}else{
+				$model->img4 = $oldfilename4;
+			}
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-
+		
 		$this->render('update',array(
 			'model'=>$model,
 		));
