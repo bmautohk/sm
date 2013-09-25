@@ -9,10 +9,16 @@
  * @property string $authorize_username
  * @property string $appointment_date
  * @property string $subject
+ * @property string $subtopic	//20139006
  * @property string $content
+ * @property string $followup_date	//20139006
  * @property string $creation_date
  * @property string $modify_date
  * @property string $remark
+ * @property string $img1	//20139006
+ * @property string $img2	//20139006
+ * @property string $img3	//20139006
+ * @property string $img4	//20139006
  */
 class Appointment extends CActiveRecord
 {
@@ -43,12 +49,15 @@ class Appointment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('customer_cd, authorize_username, appointment_date, subject, content, remark', 'required'),
+			// 20130906
+			array('customer_cd, authorize_username, appointment_date, subject, subtopic, content, remark, followup_date', 'required'),
+			array('img1, img2, img3, img4', 'safe'),
 			array('customer_cd, authorize_username', 'length', 'max'=>20),
 			array('subject', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('customer_cd, appointment_date, subject, content, remark, authorize_username', 'safe', 'on'=>'search'),
+			// 20130906
+			array('customer_cd, appointment_date, subject, subtopic, content, remark, authorize_username', 'safe', 'on'=>'search'),
 			// Set the created and modified dates automatically on insert
 			array('creation_date, modify_date', 'default',
 			'value'=>new CDbExpression('NOW()'),
@@ -78,16 +87,23 @@ class Appointment extends CActiveRecord
 	 */
 	public function attributeLabels()
 	{
+		// 20130906
 		return array(
 			'id' => 'ID',
-			'customer_cd' => '編號',
+			'customer_cd' => '客戶',
 			'authorize_username' => '帳號',
 			'appointment_date' => '約會日期',
 			'subject' => '主題',
+			'subtopic' => '副主題',
 			'content' => '內容',
 			'creation_date' => '建立日期',
 			'modify_date' => '修改日期',
 			'remark' => '備註',
+			'followup_date' => '下次跟進日期',
+			'img1' => '圖片',
+			'img2' => '圖片',
+			'img3' => '圖片',
+			'img4' => '圖片',
 		);
 	}
 
